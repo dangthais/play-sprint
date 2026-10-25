@@ -1,0 +1,219 @@
+.play-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.play-page > .play-page__back {
+  align-self: flex-start;
+  margin: 0 0 -0.5rem;
+}
+
+/* ---------- Sân khấu player: nền tối, bo góc, chiếm bề rộng cột chính ---------- */
+.play-page .game-host {
+  max-width: none;
+  margin: 0;
+  padding: 0.65rem;
+  color: #e5e9f5;
+  background: #070a16;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 50px -28px rgb(0 0 0 / 0.8);
+}
+
+@media (min-width: 768px) {
+  .play-page .game-host {
+    padding: 1rem;
+  }
+}
+
+/* Khung game giữ đúng tỉ lệ nhưng không cao hơn màn hình (trừ header và thanh trạng thái). */
+.play-page .game-host__frame-wrap {
+  width: min(100%, calc((100dvh - 11rem) * 4 / 3));
+  margin-inline: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1);
+}
+
+.play-page .game-host--landscape .game-host__frame-wrap {
+  width: min(100%, calc((100dvh - 11rem) * 16 / 9));
+}
+
+.play-page .game-host--portrait .game-host__frame-wrap {
+  width: min(100%, 480px, calc((100dvh - 11rem) * 3 / 4));
+  max-width: none;
+  max-height: none;
+}
+
+.play-page .game-host__bar {
+  justify-content: center;
+}
+
+.play-page .game-host__hint {
+  color: rgb(229 233 245 / 0.7);
+  opacity: 1;
+  text-align: center;
+}
+
+.play-page .game-host__bar button {
+  min-height: 40px;
+  padding: 0 1.1rem;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.28);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.play-page .game-host__bar button:hover {
+  background: rgb(255 255 255 / 0.2);
+}
+
+.play-page .game-host__bar button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.play-page .games-message {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* ---------- Hàng tiêu đề dưới player ---------- */
+.play-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.play-info__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 1.05rem + 1.3vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+
+.play-info__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.play-info .chip,
+.play-info .game-card__badge {
+  font-size: 0.75rem;
+}
+
+.chip--link {
+  text-decoration: none;
+  transition: filter 0.15s ease;
+}
+
+.chip--link:hover {
+  filter: brightness(1.25);
+  text-decoration: underline;
+}
+
+.chip--link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.play-page__description {
+  margin: 0;
+  max-width: 52rem;
+  color: var(--color-text-muted);
+  font-size: 1.0625rem;
+}
+
+/* ---------- "Chơi tiếp": hàng cuộn ngang ---------- */
+.play-next {
+  padding: 0.9rem 1rem 0.5rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.play-next__title {
+  margin: 0 0 0.6rem;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.play-next__list {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0 -0.25rem;
+  padding: 0.35rem 0.25rem 0.75rem;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+}
+
+.play-next__item {
+  flex: 0 0 9rem;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .play-next__item {
+    flex-basis: 10.5rem;
+  }
+}
+
+.play-next__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 14px;
+}
+
+.play-next__media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-surface-2);
+  border-radius: 14px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.play-next__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-next__name {
+  display: block;
+  margin-top: 0.4rem;
+  padding-inline: 0.15rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.play-next__link:hover .play-next__media {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 2px var(--color-accent),
+    0 12px 22px -10px rgb(124 58 237 / 0.7);
+}
+
+.play-next__link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
