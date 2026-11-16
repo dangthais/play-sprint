@@ -63,9 +63,21 @@ describe('validateNickname', () => {
     ['Trần Thị Ặ', 'Trần Thị Ặ'],
     ['  Lan  ', 'Lan'],
     ['Lan Anh', 'Lan Anh'],
-    ['Lan\u00A0\u2003Anh', 'Lan Anh'],
+    ['Lan  Anh', 'Lan Anh'],
   ])('accepts %j as %j (shared table)', (input, expected) => {
     expect(validateNickname(input)).toBe(expected);
+  });
+
+  const ch = (code: number) => String.fromCharCode(code);
+  it.each([
+    ['newline', 'a' + ch(0x0a) + 'b'],
+    ['tab', 'a' + ch(0x09) + 'b'],
+    ['carriage return', 'a' + ch(0x0d) + 'b'],
+    ['no-break space', 'a' + ch(0xa0) + 'b'],
+    ['ideographic space', 'a' + ch(0x3000) + 'b'],
+    ['em space', 'Lan' + ch(0xa0) + ch(0x2003) + 'Anh'],
+  ])('rejects control/format chars and non-U+0020 whitespace (raw string): %s', (_label, input) => {
+    expect(validateNickname(input)).toBeNull();
   });
 
   it('counts code points, not UTF-16 units', () => {
